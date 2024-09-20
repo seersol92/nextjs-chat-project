@@ -17,7 +17,7 @@ const TableThree = () => {
         console.log(data);
         setLeads(data);
       } catch (err) {
-        setError(err.message);
+        setError("Error");
       } finally {
         setLoading(false);
       }
