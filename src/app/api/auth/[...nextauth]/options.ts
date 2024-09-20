@@ -12,14 +12,19 @@ interface Credentials {
 }
 
 interface UserSession {
-  id: string; // Changed to string to match typical user IDs
+  id: string; // Ensure this matches the type from your database
   email: string;
-  name?: string | null; // Ensure name can also be null
+  name?: string | null; // Name can be null
 }
 
 export const options: NextAuthOptions = {
   providers: [
     CredentialsProvider({
+      // Add credentials property
+      credentials: {
+        email: { label: "Email", type: "text", placeholder: "you@example.com" },
+        password: { label: "Password", type: "password" },
+      },
       async authorize(credentials: Record<string, string> | undefined) {
         if (!credentials?.email || !credentials?.password) {
           throw new Error("Missing email or password");
@@ -45,7 +50,7 @@ export const options: NextAuthOptions = {
         return {
           id: user.id,
           email: user.email,
-          name: user.name || null, // Ensure name is null if not present
+          name: user.name || null,
         };
       },
     }),
