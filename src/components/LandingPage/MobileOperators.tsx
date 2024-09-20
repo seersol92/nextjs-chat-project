@@ -30,6 +30,8 @@ const MobileOperators: React.FC<MobileOperatorsProps> = ({
           <Image
             src={operator.image} // Use .src to get the URL
             alt={operator.name}
+            width={"80"}
+            height={"80"}
             className="mb-2 h-20 w-20 object-contain" // Adjust size as needed
           />
           <p
