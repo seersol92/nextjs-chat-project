@@ -1,8 +1,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import { PrismaClient, Lead } from "@prisma/client";
 
 const TableThree = () => {
-  const [leads, setLeads] = useState([]);
+  const [leads, setLeads] = useState<Lead[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
