@@ -12,15 +12,15 @@ interface Credentials {
 }
 
 interface UserSession {
-  id: number;
+  id: string; // Changed to string to match typical user IDs
   email: string;
-  name?: string;
+  name?: string | null; // Ensure name can also be null
 }
 
 export const options: NextAuthOptions = {
   providers: [
     CredentialsProvider({
-      async authorize(credentials: Credentials) {
+      async authorize(credentials: Record<string, string> | undefined) {
         if (!credentials?.email || !credentials?.password) {
           throw new Error("Missing email or password");
         }
@@ -45,7 +45,7 @@ export const options: NextAuthOptions = {
         return {
           id: user.id,
           email: user.email,
-          name: user.name,
+          name: user.name || null, // Ensure name is null if not present
         };
       },
     }),
@@ -70,7 +70,7 @@ export const options: NextAuthOptions = {
         session.user = {
           id: token.id as string,
           email: token.email as string,
-          name: token.name as string,
+          name: token.name as string | null,
         };
       }
       return session;
@@ -85,5 +85,5 @@ export const getAuthSession = () => {
 };
 
 export const handleSignOut = () => {
-  signOut({ callbackUrl: "/admin/login" }); // Redirect to homepage or any other URL after logout
+  signOut({ callbackUrl: "/admin/login" }); // Redirect to the specified URL after logout
 };
