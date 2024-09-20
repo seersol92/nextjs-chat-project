@@ -66,7 +66,7 @@ const LandingPage: React.FC = () => {
           {/* Main Content */}
           <main className="flex-1 p-6">
             <h1 className="pb-4 text-2xl font-bold">
-              De quel type d'offre souhaitez-vous profiter ?*
+              De quel type d&apos;offre souhaitez-vous profiter ?*
             </h1>
 
             <h3 className="pb-4">Choisissez une option</h3>
@@ -78,7 +78,7 @@ const LandingPage: React.FC = () => {
         {/* Footer */}
         <footer className="bg-[#d3d3d3] p-4 text-white">
           <div className="container mx-auto text-center">
-            <p>&copy; 2024 CHATBOT APP. All rights reserved.</p>
+            <p>&copy; 2024 All rights reserved.</p>
           </div>
         </footer>
       </div>

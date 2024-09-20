@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 interface Operator {
@@ -26,7 +27,7 @@ const MobileOperators: React.FC<MobileOperatorsProps> = ({
           className={`flex cursor-pointer flex-col items-center justify-center rounded-[50px] border p-4 transition-shadow duration-300 ease-in-out ${selectedOperator === operator.id ? "border-blue-600 bg-blue-100" : "border-gray-300"} hover:shadow-lg`}
           onClick={() => onSelectOperator(operator.id)}
         >
-          <img
+          <Image
             src={operator.image} // Use .src to get the URL
             alt={operator.name}
             className="mb-2 h-20 w-20 object-contain" // Adjust size as needed
