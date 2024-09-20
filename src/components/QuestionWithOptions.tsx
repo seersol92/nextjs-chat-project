@@ -9,12 +9,14 @@ interface Option {
 interface QuestionWithOptionsProps {
   question: string;
   options: Option[];
+  name: string;
   selectedValue: string;
   onChange: (value: string) => void;
 }
 
 const QuestionWithOptions: React.FC<QuestionWithOptionsProps> = ({
   question,
+  name,
   options,
   selectedValue,
   onChange,
@@ -32,7 +34,7 @@ const QuestionWithOptions: React.FC<QuestionWithOptionsProps> = ({
               id={option.id}
               type="radio"
               value={option.value}
-              name="question-options"
+              name={name}
               checked={selectedValue === option.value}
               onChange={() => onChange(option.value)}
               className="bg-gray-100 border-gray-300 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600 h-4 w-4 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600"

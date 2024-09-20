@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import Tab from "../Tab";
 import AbMobile from "./AbMobile";
 import MobileFibre from "./MobileFibre";
@@ -28,18 +29,24 @@ const LandingPage: React.FC = () => {
     <>
       <div className="bg-background min-h-screen">
         {/* Header */}
-        <header className="bg-primary p-4 text-white shadow-md">
+        <header className="bg-[#d3d3d3]  text-white shadow-md">
           <div className="container mx-auto flex items-center justify-between">
             {/* Logo */}
-            <div className="text-2xl font-bold">
+            <div className="">
               <Link href="/" className="hover:underline">
-                CHATBOT APP
+                <Image
+                  src="/images/logo.jpeg"
+                  alt="Logo"
+                  width={100} // Adjust width as needed
+                  height={40} // Adjust height as needed
+                  className="object-contain"
+                />
               </Link>
             </div>
 
             {/* Navigation Links */}
             <nav>
-              <ul className="flex space-x-4">
+              <ul className="hidden space-x-4">
                 <li>
                   <Link href="/about" className="hover:text-secondary">
                     About Us
@@ -69,7 +76,7 @@ const LandingPage: React.FC = () => {
           </main>
         </div>
         {/* Footer */}
-        <footer className="bg-primary p-4 text-white">
+        <footer className="bg-[#d3d3d3] p-4 text-white">
           <div className="container mx-auto text-center">
             <p>&copy; 2024 CHATBOT APP. All rights reserved.</p>
           </div>
