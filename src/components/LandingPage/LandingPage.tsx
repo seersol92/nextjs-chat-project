@@ -3,8 +3,6 @@ import Link from "next/link";
 import Image from "next/image";
 import Tab from "../Tab";
 import AbMobile from "./AbMobile";
-import MobileFibre from "./MobileFibre";
-import MobileFibreTv from "./MobileFibreTv";
 
 const LandingPage: React.FC = () => {
   // Define your tab data
@@ -12,17 +10,17 @@ const LandingPage: React.FC = () => {
     {
       id: "abonnement-mobile",
       label: "Abonnement Mobile",
-      content: <AbMobile />,
+      content: <AbMobile tabType="Abonnement Mobile" />,
     },
     {
       id: "mobile-fibre",
       label: "Mobile + Fibre",
-      content: <MobileFibre />,
+      content: <AbMobile tabType="Mobile + Fibre" />,
     },
     {
       id: "mobile-fibre-tv",
       label: "Mobile + Fibre + TV",
-      content: <MobileFibreTv />,
+      content: <AbMobile tabType="Mobile + Fibre + TV" />,
     },
   ];
   return (
@@ -30,7 +28,7 @@ const LandingPage: React.FC = () => {
       <div className="bg-background min-h-screen">
         {/* Header */}
         <header className="bg-[#d3d3d3]  text-white shadow-md">
-          <div className="container mx-auto flex items-center justify-between">
+          <div className="flex items-center justify-between pl-6">
             {/* Logo */}
             <div className="">
               <Link href="/" className="hover:underline">
@@ -62,7 +60,7 @@ const LandingPage: React.FC = () => {
           </div>
         </header>
         {/* Main Content */}
-        <div className="container">
+        <div className="">
           {/* Main Content */}
           <main className="flex-1 p-6">
             <h1 className="pb-4 text-2xl font-bold">

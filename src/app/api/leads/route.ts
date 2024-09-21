@@ -5,6 +5,7 @@ const prisma = new PrismaClient();
 
 export async function POST(request: Request) {
   const {
+    tabType,
     operator,
     duration,
     displeasure,
@@ -14,6 +15,17 @@ export async function POST(request: Request) {
     surname,
     email,
   } = await request.json();
+  console.log({
+    tabType,
+    operator,
+    duration,
+    displeasure,
+    cost,
+    engagement,
+    name,
+    surname,
+    email,
+  });
   // Validate the incoming data
   if (!operator || !duration) {
     return NextResponse.json(
@@ -27,6 +39,7 @@ export async function POST(request: Request) {
   try {
     const lead = await prisma.lead.create({
       data: {
+        type: tabType,
         operator,
         duration,
         displeasure,

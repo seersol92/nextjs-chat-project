@@ -24,11 +24,11 @@ const QuestionWithOptions: React.FC<QuestionWithOptionsProps> = ({
   return (
     <div className="mt-5">
       <p className="mb-4 text-lg font-semibold">{question}</p>
-      <div className="flex justify-center space-x-4">
+      <div className="flex flex-col justify-center gap-4 md:flex-row">
         {options.map((option) => (
           <div
             key={option.id}
-            className="border-gray-200 dark:border-gray-700 flex w-70 items-center rounded border ps-4"
+            className="border-gray-200 dark:border-gray-700 flex  items-center rounded border p-4 md:w-1/4"
           >
             <input
               id={option.id}

@@ -16,6 +16,7 @@ model User {
 
 model Lead {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  type        String
   operator    String // The name of the mobile operator
   duration    String // "moins-dun-an", "plus-dun-an", "je-ne-sais-pas"
   displeasure String // "prix-abonnement-trop-cher", "lenteur-reseau", "service-clientele-peu-joignable", "autre"

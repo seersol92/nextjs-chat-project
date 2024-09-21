@@ -4,14 +4,18 @@ import MobileOperators from "./MobileOperators";
 import { operatorsList } from "@/lib/operatorsList";
 import QuestionWithOptions from "../QuestionWithOptions";
 import { toast } from "react-toastify";
+import Loader from "../common/Loader";
 
-const AbMobile: React.FC = () => {
+interface AbMobileProps {
+  tabType: string;
+}
+
+const AbMobile: React.FC<AbMobileProps> = ({ tabType }) => {
   const [selectedOperator, setSelectedOperator] = useState<string | null>(null);
   const [selectedDuration, setSelectedDuration] = useState<string>("");
   const [selectedDispleasure, setSelectedDispleasure] = useState<string>("");
   const [selectedCost, setSelectedCost] = useState<string>("");
   const [selectedEngagement, setSelectedEngagement] = useState<string>("");
-  const [submissionStatus, setSubmissionStatus] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false); // Loader state
   const [name, setName] = useState<string>("");
   const [surname, setSurname] = useState<string>("");
@@ -40,6 +44,7 @@ const AbMobile: React.FC = () => {
 
   const handleSubmit = async () => {
     const leadData = {
+      tabType,
       operator: selectedOperator,
       duration: selectedDuration,
       displeasure: selectedDispleasure,
@@ -62,8 +67,7 @@ const AbMobile: React.FC = () => {
       });
       const data = await response.json(); // Get the response body as JSON
       if (response.ok) {
-        toast.success("Lead soumis avec succès !");
-        setSubmissionStatus(
+        toast.success(
           "Merci, nous allons vous contacter prochainement pour vous proposer la meilleure offre.",
         );
       } else {
@@ -234,9 +238,9 @@ const AbMobile: React.FC = () => {
       </div>
       <div className="mt-4 flex justify-center">
         {loading ? (
-          <div className="loader">Loading...</div> // Add your loading indicator style
-        ) : submissionStatus ? (
-          <p className="text-lg font-bold text-green-600">{submissionStatus}</p>
+          <div className="flex items-center justify-center">
+            <div className="h-12 w-12 animate-spin rounded-full border-4 border-solid border-primary border-t-transparent"></div>
+          </div>
         ) : (
           <button
             onClick={handleSubmit}
