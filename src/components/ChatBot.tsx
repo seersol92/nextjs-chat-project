@@ -3,69 +3,8 @@ import { useState, useEffect } from "react";
 import { operatorsList } from "@/lib/operatorsList";
 import LocationForm from "./LocationForm";
 import { toast } from "react-toastify";
-
-
-interface OptionsProps {
-  options: string[];
-  hasImages: boolean;
-  onOptionClick: (option: string) => void;
-}
-
-const Options: React.FC<OptionsProps> = ({
-  options,
-  hasImages,
-  onOptionClick,
-}) => {
-  return (
-    <div className="flex flex-wrap justify-center space-x-2">
-      {options.map((option, index) => (
-        <div
-          key={index}
-          className={`${
-            hasImages
-              ? "mb-4 flex w-1/4 flex-col items-center justify-center"
-              : ""
-          }`}
-        >
-          {hasImages && option.image ? (
-            <div
-              className="cursor-pointer"
-              onClick={() => onOptionClick(option.name)}
-            >
-              <Image
-                src={option.image}
-                alt={option.name}
-                width={50} // Adjust width as needed
-                height={50} // Adjust height as needed
-                className="object-contain"
-              />
-              <span className="mt-1 text-center">{option.name}</span>
-            </div>
-          ) : (
-            <button
-              className="flex-1   rounded bg-blue-500 px-5 py-2 mb-2 text-white hover:bg-blue-600"
-              onClick={() => onOptionClick(option)}
-            >
-              {option}
-            </button>
-          )}
-        </div>
-      ))}
-    </div>
-  );
-};
-
-
-const Loader = () => {
-  return (
-    <div className="flex items-center justify-center space-x-2">
-      <div className="h-2 w-2 animate-bounce rounded-full bg-blue-500"></div>
-      <div className="h-2 w-2 animate-bounce rounded-full bg-blue-500 delay-200"></div>
-      <div className="delay-400 h-2 w-2 animate-bounce rounded-full bg-blue-500"></div>
-    </div>
-  );
-};
-
+import Options from "./Options";
+import Loader from "./Loader";
 
 const ChatBot = () => {
   const [messages, setMessages] = useState<any[]>([]);
@@ -192,24 +131,6 @@ const ChatBot = () => {
       audio.play().catch((err) => console.error("Audio play failed:", err));
       setLoading(false);
       setWaitingForUser(true); // Wait for the next user interaction
-    }, 1000);
-  };
-
-  const handleInputChange = (value: string) => {
-    setMessages((prevMessages) => [
-      ...prevMessages,
-      { sender: "user", text: value },
-    ]);
-
-    setLoading(true);
-    setWaitingForUser(false);
-    setTimeout(() => {
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        { sender: "bot", text: `Vous avez entré: ${value}` },
-      ]);
-      setLoading(false);
-      setCurrentMessageIndex((prevIndex) => prevIndex + 1); // Move to the next question
     }, 1000);
   };
 
