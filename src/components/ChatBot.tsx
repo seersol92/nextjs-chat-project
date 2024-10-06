@@ -134,7 +134,15 @@ const ChatBot = () => {
     }, 1000);
   };
 
-  const handleFormSubmit = async (data:any) => {
+  const handleFormSubmit = async (data: {
+    street: string;
+    postalCode: string;
+    city: string;
+    lastName: string;
+    firstName: string;
+    email: string;
+    phoneNumber: string;
+  }) => {
     const leadData = {
       type: userData.type,
       operator: userData.operator,
@@ -188,7 +196,7 @@ const ChatBot = () => {
     } finally {
       setLoading(false); // Stop loading
     }
-  }
+  };
   return (
     <div className="bg-gray-100 mt-10 flex min-h-screen flex-col items-center">
       <div className="w-[550px] rounded-lg bg-white p-4 shadow-md">
