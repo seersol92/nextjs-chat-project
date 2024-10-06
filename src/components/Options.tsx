@@ -1,7 +1,8 @@
+import { Operator } from "@/lib/operatorsList";
 import Image from "next/image";
 
 interface OptionsProps {
-  options: any[];
+  options: Operator[] | string[];
   hasImages: boolean;
   onOptionClick: (option: string) => void;
 }
