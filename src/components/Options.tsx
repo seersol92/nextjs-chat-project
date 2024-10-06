@@ -13,7 +13,7 @@ const Options: React.FC<OptionsProps> = ({
   onOptionClick,
 }) => {
   return (
-    <div className="flex flex-wrap justify-center space-x-2">
+    <div className="flex flex-row flex-wrap items-center justify-center gap-2">
       {options.map((option, index) => (
         <div
           key={index}
@@ -39,7 +39,7 @@ const Options: React.FC<OptionsProps> = ({
             </div>
           ) : (
             <button
-              className="mb-2   flex-1 rounded bg-blue-500 px-5 py-2 text-white hover:bg-blue-600"
+              className="mb-2 w-90 flex-1  rounded bg-blue-500 px-5 py-2 text-white hover:bg-blue-600 md:w-auto"
               onClick={() => onOptionClick(option)}
             >
               {option}

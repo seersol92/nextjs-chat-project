@@ -199,7 +199,7 @@ const ChatBot = () => {
   };
   return (
     <div className="bg-gray-100 mt-10 flex min-h-screen flex-col items-center">
-      <div className="w-[550px] rounded-lg bg-white p-4 shadow-md">
+      <div className="w-[90%] md:w-[70%] lg:w-[40%] rounded-lg bg-white p-4 shadow-md">
         <div className="flex max-h-[700px] flex-col space-y-4 overflow-y-auto">
           {messages.map((message, index) => (
             <div key={index}>
