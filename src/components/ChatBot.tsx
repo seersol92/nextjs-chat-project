@@ -223,7 +223,7 @@ const ChatBot = () => {
                 <Options
                   options={botMessages[currentMessageIndex].options || []}
                   onOptionClick={handleOptionClick}
-                  hasImages={botMessages[currentMessageIndex]?.images}
+                  hasImages={botMessages[currentMessageIndex].images}
                 />
               )}
               {/* Handle input separately if needed */}
