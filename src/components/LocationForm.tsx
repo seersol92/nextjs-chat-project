@@ -2,7 +2,15 @@ import React, { useState } from "react";
 
 interface LocationFormProps {
   isLoading: boolean;
-  onSubmit: (data: string) => void; // Pass only the formatted string
+  onSubmit: (data: {
+    street: string;
+    postalCode: string;
+    city: string;
+    lastName: string;
+    firstName: string;
+    email: string;
+    phoneNumber: string;
+  }) => Promise<void>; // Pass only the formatted string
 }
 
 const LocationForm: React.FC<LocationFormProps> = ({ isLoading, onSubmit }) => {
