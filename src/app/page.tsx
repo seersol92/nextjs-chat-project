@@ -2,8 +2,8 @@ import { Metadata } from "next";
 import LandingPage from "@/components/LandingPage/LandingPage";
 
 export const metadata: Metadata = {
-  title: "ChatBot Landing Page",
-  description: "ChatBot Landing Page",
+  title: "App",
+  description: "App",
 };
 
 export default function Home() {

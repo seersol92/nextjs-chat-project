@@ -17,6 +17,10 @@
     .bg-custom-gradient {
             background: linear-gradient(to right, rgba(104, 192, 204, 0.8), rgb(57, 170, 185), rgba(17, 121, 135, 0.9));
         }
+
+    .bg-custom-gradient-hover {
+        background: linear-gradient(to right, rgba(17, 121, 135, 0.9), rgb(57, 170, 185), rgba(104, 192, 204, 0.8));
+    }
     /* Chrome, Safari and Opera */
     .no-scrollbar::-webkit-scrollbar {
         display: none;

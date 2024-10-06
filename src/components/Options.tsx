@@ -39,7 +39,8 @@ const Options: React.FC<OptionsProps> = ({
             </div>
           ) : (
             <button
-              className="mb-2 w-90 flex-1  rounded bg-blue-500 px-5 py-2 text-white hover:bg-blue-600 md:w-auto"
+              className="bg-custom-gradient hover:bg-custom-gradient-hover mb-2  w-90 flex-1 rounded-lg px-5 py-2
+               text-white md:w-auto"
               onClick={() => onOptionClick(option)}
             >
               {option}

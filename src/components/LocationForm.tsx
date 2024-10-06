@@ -200,9 +200,9 @@ const LocationForm: React.FC<LocationFormProps> = ({ isLoading, onSubmit }) => {
         <button
           type="submit"
           disabled={!acceptedTerms}
-          className={`rounded-md bg-blue-500 p-2 text-white  transition duration-200 hover:bg-blue-600 ${
+          className={`bg-custom-gradient hover:bg-custom-gradient-hover rounded-md p-2 text-white  transition duration-200  ${
             acceptedTerms
-              ? "bg-blue-500 hover:bg-blue-700"
+              ? "bg-custom-gradient"
               : "cursor-not-allowed bg-blue-400"
           }`}
         >
