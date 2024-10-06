@@ -10,7 +10,7 @@ const ChatBot = () => {
   const [messages, setMessages] = useState<any[]>([]);
 
   const [currentMessageIndex, setCurrentMessageIndex] = useState<number>(0);
-  const [currentMsg, setCurrentMsg] = useState({});
+  const [currentMsg, setCurrentMsg] = useState<any>({});
   const [waitingForUser, setWaitingForUser] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [userData, setUserData] = useState({
@@ -134,7 +134,7 @@ const ChatBot = () => {
     }, 1000);
   };
 
-  const handleFormSubmit = async (data) => {
+  const handleFormSubmit = async (data:any) => {
     const leadData = {
       type: userData.type,
       operator: userData.operator,
