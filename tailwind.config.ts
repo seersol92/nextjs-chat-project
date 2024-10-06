@@ -23,6 +23,9 @@ const config: Config = {
       ...defaultTheme.screens,
     },
     extend: {
+      animation: {
+        bounce: 'bounce 1s infinite',
+      },
       colors: {
         current: "currentColor",
         transparent: "transparent",

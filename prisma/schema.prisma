@@ -17,13 +17,17 @@ model User {
 model Lead {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   type        String
-  operator    String // The name of the mobile operator
-  duration    String // "moins-dun-an", "plus-dun-an", "je-ne-sais-pas"
-  displeasure String // "prix-abonnement-trop-cher", "lenteur-reseau", "service-clientele-peu-joignable", "autre"
-  cost        String // "moins-de-40-chf", "entre-40-et-50-chf", "plus-de-50-chf", "je-ne-sais-pas"
-  engagement  String // "oui", "non"
-  name        String // New field for name
-  surname     String // New field for surname
-  email       String // New field for email
+  operator    String   // The name of the mobile operator
+  duration    String   // "moins-dun-an", "plus-dun-an", "je-ne-sais-pas"
+  displeasure String   // "prix-abonnement-trop-cher", "lenteur-reseau", "service-clientele-peu-joignable", "autre"
+  cost        String   // "moins-de-40-chf", "entre-40-et-50-chf", "plus-de-50-chf", "je-ne-sais-pas"
+  name        String   // New field for name
+  surname     String   // New field for surname
+  email       String   // New field for email
+  phone       String?  // New field for phone number (optional)
+  city        String?  // New field for city (optional)
+  street      String?  // New field for street (optional)
+  postal      String?  // New field for street (optional)
   createdAt   DateTime @default(now())
 }
+

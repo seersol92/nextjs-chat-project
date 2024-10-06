@@ -33,12 +33,10 @@ const TableThree = () => {
     XLSX.utils.book_append_sheet(workbook, worksheet, "Leads");
 
     // Create a downloadable file
-    // Get current date and time
     const now = new Date();
     const formattedDateTime = now.toISOString().replace(/T/, "_").slice(0, 19); // Format as YYYY-MM-DD_HH-MM-SS
     const fileName = `leads_${formattedDateTime}.xlsx`;
 
-    // Create a downloadable file with the dynamic name
     XLSX.writeFile(workbook, fileName);
   };
 
@@ -50,7 +48,7 @@ const TableThree = () => {
       <div className="flex justify-end">
         <button
           onClick={exportToExcel}
-          className=" mb-4 flex gap-2 rounded bg-blue-600 px-2 py-2 text-white"
+          className="mb-4 flex gap-2 rounded bg-blue-600 px-2 py-2 text-white"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -59,7 +57,7 @@ const TableThree = () => {
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
-            className=" h-6 w-6"
+            className="h-6 w-6"
           >
             <path
               strokeLinecap="round"
@@ -99,8 +97,18 @@ const TableThree = () => {
               <th className="min-w-[100px] px-4 py-4 font-medium text-black dark:text-white">
                 Cost
               </th>
+              
               <th className="min-w-[100px] px-4 py-4 font-medium text-black dark:text-white">
-                Engagement
+                Phone
+              </th>
+              <th className="min-w-[100px] px-4 py-4 font-medium text-black dark:text-white">
+                City
+              </th>
+              <th className="min-w-[100px] px-4 py-4 font-medium text-black dark:text-white">
+                Street
+              </th>
+              <th className="min-w-[100px] px-4 py-4 font-medium text-black dark:text-white">
+                Postal
               </th>
             </tr>
           </thead>
@@ -137,10 +145,18 @@ const TableThree = () => {
                 <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                   <p className="text-black dark:text-white">{lead.cost}</p>
                 </td>
+               
                 <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                  <p className="text-black dark:text-white">
-                    {lead.engagement}
-                  </p>
+                  <p className="text-black dark:text-white">{lead.phone}</p>
+                </td>
+                <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                  <p className="text-black dark:text-white">{lead.city}</p>
+                </td>
+                <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                  <p className="text-black dark:text-white">{lead.street}</p>
+                </td>
+                <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                  <p className="text-black dark:text-white">{lead.postal}</p>
                 </td>
               </tr>
             ))}

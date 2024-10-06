@@ -14,6 +14,9 @@
 }
 
 @layer utilities {
+    .bg-custom-gradient {
+            background: linear-gradient(to right, rgba(104, 192, 204, 0.8), rgb(57, 170, 185), rgba(17, 121, 135, 0.9));
+        }
     /* Chrome, Safari and Opera */
     .no-scrollbar::-webkit-scrollbar {
         display: none;
@@ -196,6 +199,8 @@ span.flatpickr-weekday,
     box-shadow: -10px 0 0 #3c50e0;
 }
 
+
+
 .map-btn .jvm-zoom-btn {
     @apply flex h-7.5 w-7.5 items-center justify-center rounded border border-stroke bg-white px-0 pb-0.5 pt-0 text-2xl leading-none text-body hover:border-primary hover:bg-primary hover:text-white dark:border-strokedark dark:bg-meta-4 dark:text-bodydark dark:hover:border-primary dark:hover:bg-primary dark:hover:text-white;
 }
@@ -240,4 +245,17 @@ input[type="search"]::-webkit-search-cancel-button {
 
 [x-cloak] {
     display: none !important;
+}
+
+
+.mainImage {
+    background-image: url('/images/chat-bot-bg.jpg');
+    /* Update the path */
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    /* Adjust as needed */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

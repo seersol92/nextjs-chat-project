@@ -5,27 +5,36 @@ const prisma = new PrismaClient();
 
 export async function POST(request: Request) {
   const {
-    tabType,
+    type, // Changed from tabType to type
     operator,
     duration,
     displeasure,
     cost,
-    engagement,
     name,
     surname,
     email,
+    phone, // New field for phone number
+    city, // New field for city
+    street,
+    postal,
+    
   } = await request.json();
+
   console.log({
-    tabType,
+    type, // Updated logging to match the new variable
     operator,
     duration,
     displeasure,
     cost,
-    engagement,
     name,
     surname,
     email,
+    phone,
+    city,
+    street,
+    postal
   });
+
   // Validate the incoming data
   if (!operator || !duration) {
     return NextResponse.json(
@@ -39,15 +48,18 @@ export async function POST(request: Request) {
   try {
     const lead = await prisma.lead.create({
       data: {
-        type: tabType,
+        type, // Use the updated variable name here
         operator,
         duration,
         displeasure,
         cost,
-        engagement,
         name,
         surname,
         email,
+        phone, // Save phone number
+        city, // Save city
+        street, // Save street
+        postal
       },
     });
     return NextResponse.json(lead, { status: 201 });

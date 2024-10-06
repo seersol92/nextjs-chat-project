@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Tab from "../Tab";
 import AbMobile from "./AbMobile";
+import ChatBot from "../ChatBot";
 
 const LandingPage: React.FC = () => {
   // Define your tab data
@@ -25,9 +26,9 @@ const LandingPage: React.FC = () => {
   ];
   return (
     <>
-      <div className="bg-background min-h-screen">
+      <div className=" min-h-screen">
         {/* Header */}
-        <header className="bg-[#d3d3d3]  text-white shadow-md">
+        <header className="bg-custom-gradient  text-white shadow-md">
           <div className="flex items-center justify-between pl-6">
             {/* Logo */}
             <div className="">
@@ -60,17 +61,12 @@ const LandingPage: React.FC = () => {
           </div>
         </header>
         {/* Main Content */}
-        <div className="">
+        <div className="mainImage">
           {/* Main Content */}
           <main className="flex-1 p-6">
-            <h1 className="pb-4 text-2xl font-bold">
-              De quel type d&apos;offre souhaitez-vous profiter ?*
-            </h1>
-
-            <h3 className="pb-4">Choisissez une option</h3>
-
-            {/* Use the Tab Component */}
-            <Tab tabs={tabs} />
+            {/* Use the Tab Component
+             */}
+            <ChatBot />
           </main>
         </div>
         {/* Footer */}
