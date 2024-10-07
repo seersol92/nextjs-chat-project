@@ -199,8 +199,26 @@ const ChatBot = () => {
   };
   return (
     <div className="bg-gray-100 mt-10 flex min-h-screen flex-col items-center">
-      <div className="w-[90%] md:w-[70%] lg:w-[40%] rounded-lg bg-white p-4 shadow-md">
-        <div className="flex max-h-[700px] flex-col space-y-4 overflow-y-auto">
+      <div className="w-[90%] rounded-lg bg-white shadow-md md:w-[70%] lg:w-[40%]">
+        {/* Chat Heading */}
+        <div className="bg-custom-gradient-hover relative mb-4 flex items-center rounded-tl-lg rounded-tr-lg p-3">
+          <div className="relative">
+            <Image
+              src="/images/chat-bot.jpg"
+              alt="Thomas"
+              width={50}
+              height={50}
+              className="object-contain "
+            />
+            {/* Online Indicator */}
+            <div className="absolute right-0 top-0 h-3 w-3 rounded-full bg-green-500"></div>
+          </div>
+          <div className="ml-2 flex items-center">
+            <h2 className="font-semibold text-white">Thomas</h2>
+          </div>
+        </div>
+
+        <div className="scrollbar flex max-h-[700px] flex-col space-y-4 overflow-y-auto p-3">
           {messages.map((message, index) => (
             <div key={index}>
               <div
@@ -208,8 +226,8 @@ const ChatBot = () => {
               >
                 {message.sender === "bot" && (
                   <Image
-                    src={"/images/avatar-landbot.png"}
-                    alt="Logo"
+                    src={"/images/chat-bot.jpg"}
+                    alt="Thomas"
                     width={40}
                     height={40}
                     className="object-contain"
@@ -231,7 +249,9 @@ const ChatBot = () => {
                 <Options
                   options={botMessages[currentMessageIndex].options || []}
                   onOptionClick={handleOptionClick}
-                  hasImages={botMessages[currentMessageIndex].images ? true : false}
+                  hasImages={
+                    botMessages[currentMessageIndex].images ? true : false
+                  }
                 />
               )}
               {/* Handle input separately if needed */}

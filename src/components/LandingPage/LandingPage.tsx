@@ -31,14 +31,14 @@ const LandingPage: React.FC = () => {
         <header className="bg-custom-gradient  text-white shadow-md">
           <div className="flex items-center justify-between pl-6">
             {/* Logo */}
-            <div className="pt-2 pb-2">
+            <div className="pb-2 pt-2">
               <Link href="/" className="hover:underline">
                 <Image
                   src="/images/logo.jpeg"
                   alt="Logo"
                   width={95} // Adjust width as needed
                   height={43} // Adjust height as needed
-                  className="object-contain rounded-full"
+                  className="rounded-full object-contain"
                 />
               </Link>
             </div>
@@ -70,7 +70,7 @@ const LandingPage: React.FC = () => {
           </main>
         </div>
         {/* Footer */}
-        <footer className="bg-custom-gradient p-4 text-white">
+        <footer className="bg-[#020018] p-5 text-white">
           <div className="container mx-auto text-center">
             <p>&copy; 2024 All rights reserved.</p>
           </div>
