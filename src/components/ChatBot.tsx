@@ -47,6 +47,7 @@ const ChatBot = () => {
   const [waitingForUser, setWaitingForUser] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const chatRef = useRef<HTMLDivElement>(null); // Ref for chat container
+
   const [userData, setUserData] = useState({
     type: "",
     operator: "",
@@ -186,6 +187,19 @@ const ChatBot = () => {
       setLoading(false);
       setWaitingForUser(true); // Wait for the next user interaction
     }, 1000);
+  };
+
+  const goToPreviousMessage = () => {
+    if (currentMessageIndex > 0) {
+       setCurrentMessageIndex((prevIndex) => prevIndex - 1); // Move to the next question
+       const currentMessage = botMessages[currentMessageIndex - 1];
+       setCurrentMsg(currentMessage);
+       setMessages((prevMessages) => [
+         ...prevMessages,
+         { sender: "bot", ...currentMessage },
+       ]);
+      setWaitingForUser(true); // Allow user interaction again
+    }
   };
 
   const handleFormSubmit = async (data: {
@@ -336,62 +350,44 @@ const ChatBot = () => {
           />
           {messages.map((message, index) => (
             <div key={index}>
-              {message.key === "contact" &&
-              userData.type === "Abonnement Mobile" ? (
-                <div className="flex justify-center">
-                  <button
-                    onClick={() =>
-                      handleFormSubmit({
-                        street: "",
-                        postalCode: "",
-                        city: "",
-                        lastName: "",
-                        firstName: "",
-                        email: "",
-                        phoneNumber: "",
-                      })
-                    }
-                    disabled={loading}
-                    type="submit"
-                    className={` bg-custom-gradient-hover hover:bg-custom-gradient w-90 rounded-md p-2  text-white  transition duration-500`}
-                  >
-                    Valider
-                  </button>
-                </div>
-              ) : (
-                <Message sender={message.sender} text={message.text} />
-              )}
+              <Message sender={message.sender} text={message.text} />
             </div>
           ))}
           {loading && <Loader />}
 
           {/* Render options if available */}
-          { 
-            waitingForUser &&
-            currentMessageIndex < botMessages.length && (
-              
-                (currentMsg.key === "contact" && userData.type === "Abonnement Mobile")
-                ? ""
-                :  <>
-                {botMessages[currentMessageIndex].options && (
-                  <Options
-                    options={botMessages[currentMessageIndex].options || []}
-                    onOptionClick={handleOptionClick}
-                    hasImages={
-                      botMessages[currentMessageIndex].images ? true : false
-                    }
-                  />
-                )}
-                {/* Handle input separately if needed */}
-                {botMessages[currentMessageIndex].input && (
-                  <LocationForm
-                    onSubmit={handleFormSubmit}
-                    isLoading={loading}
-                  />
-                )}
-              </>
-              
-            )}
+          {waitingForUser && currentMessageIndex < botMessages.length && (
+            <>
+              {botMessages[currentMessageIndex].options && (
+                <Options
+                  options={botMessages[currentMessageIndex].options || []}
+                  onOptionClick={handleOptionClick}
+                  hasImages={
+                    botMessages[currentMessageIndex].images ? true : false
+                  }
+                />
+              )}
+              {/* Handle input separately if needed */}
+              {botMessages[currentMessageIndex].input && (
+                <LocationForm
+                  showAddress={userData.type !== "Abonnement Mobile"}
+                  onSubmit={handleFormSubmit}
+                  isLoading={loading}
+                />
+              )}
+              {currentMessageIndex > 0 && (
+                <div>
+                  <button
+                    className="mt-2 ml-4 mb-2 flex text-lg  text-blue-500 underline"
+                    onClick={goToPreviousMessage}
+                  >
+                    
+                    <span> {"<- précédent"}</span>
+                  </button>
+                </div>
+              )}
+            </>
+          )}
         </div>
       </div>
     </div>

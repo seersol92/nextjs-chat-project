@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 interface LocationFormProps {
   isLoading: boolean;
+  showAddress: boolean;
   onSubmit: (data: {
     street: string;
     postalCode: string;
@@ -13,7 +14,11 @@ interface LocationFormProps {
   }) => Promise<void>; // Pass only the formatted string
 }
 
-const LocationForm: React.FC<LocationFormProps> = ({ isLoading, onSubmit }) => {
+const LocationForm: React.FC<LocationFormProps> = ({
+  isLoading,
+  onSubmit,
+  showAddress,
+}) => {
   const [acceptedTerms, setAcceptedTerms] = useState<boolean>(false);
   const [formData, setFormData] = useState({
     street: "",
@@ -52,53 +57,55 @@ const LocationForm: React.FC<LocationFormProps> = ({ isLoading, onSubmit }) => {
   return (
     <form onSubmit={handleSubmit} className="flex flex-col space-y-8">
       {/* Address Section */}
-      <div>
-        <div className="mb-2 font-bold hidden">
-          Champs de formulaire de gestion de données :
-        </div>
+      {showAddress && (
         <div>
-          <label className="mb-1 block" htmlFor="street">
-            Rue:
-          </label>
-          <input
-            type="text"
-            name="street"
-            value={formData.street}
-            onChange={handleChange}
-            placeholder="rue du Bourg"
-            required
-            className="border-gray-300 w-full rounded-md border p-2 transition focus:border-blue-500 focus:outline-none focus:ring focus:ring-blue-200"
-          />
+          <div className="mb-2 hidden font-bold">
+            Champs de formulaire de gestion de données :
+          </div>
+          <div>
+            <label className="mb-1 block" htmlFor="street">
+              Rue:
+            </label>
+            <input
+              type="text"
+              name="street"
+              value={formData.street}
+              onChange={handleChange}
+              placeholder="rue du Bourg"
+              required
+              className="border-gray-300 w-full rounded-md border p-2 transition focus:border-blue-500 focus:outline-none focus:ring focus:ring-blue-200"
+            />
+          </div>
+          <div>
+            <label className="mb-1 block" htmlFor="postalCode">
+              Code postal:
+            </label>
+            <input
+              type="text"
+              name="postalCode"
+              value={formData.postalCode}
+              onChange={handleChange}
+              placeholder="1003"
+              required
+              className="border-gray-300 w-full rounded-md border p-2 transition focus:border-blue-500 focus:outline-none focus:ring focus:ring-blue-200"
+            />
+          </div>
+          <div>
+            <label className="mb-1 block" htmlFor="city">
+              Ville:
+            </label>
+            <input
+              type="text"
+              name="city"
+              value={formData.city}
+              onChange={handleChange}
+              placeholder="Lausanne"
+              required
+              className="border-gray-300 w-full rounded-md border p-2 transition focus:border-blue-500 focus:outline-none focus:ring focus:ring-blue-200"
+            />
+          </div>
         </div>
-        <div>
-          <label className="mb-1 block" htmlFor="postalCode">
-            Code postal:
-          </label>
-          <input
-            type="text"
-            name="postalCode"
-            value={formData.postalCode}
-            onChange={handleChange}
-            placeholder="1003"
-            required
-            className="border-gray-300 w-full rounded-md border p-2 transition focus:border-blue-500 focus:outline-none focus:ring focus:ring-blue-200"
-          />
-        </div>
-        <div>
-          <label className="mb-1 block" htmlFor="city">
-            Ville:
-          </label>
-          <input
-            type="text"
-            name="city"
-            value={formData.city}
-            onChange={handleChange}
-            placeholder="Lausanne"
-            required
-            className="border-gray-300 w-full rounded-md border p-2 transition focus:border-blue-500 focus:outline-none focus:ring focus:ring-blue-200"
-          />
-        </div>
-      </div>
+      )}
 
       {/* Contact Information Section */}
       <div>
