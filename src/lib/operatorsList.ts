@@ -8,6 +8,8 @@ import talktalkLogo from "@/public/images/operators/logo-talktalk.png";
 import teleboyLogo from "@/public/images/operators/logo-teleboy.png";
 import wingoLogo from "@/public/images/operators/logo-wingo.png";
 import yalloLogo from "@/public/images/operators/logo-yallo.png";
+import otherLogo from "@/public/images/operators/other.jpg";
+
 
 // Define the type for the operator item
 export interface Operator {
@@ -26,4 +28,5 @@ export const operatorsList: Operator[] = [
   { id: "postmobile", name: "Post Mobile", image: postMobileLogo.src },
   { id: "wingo", name: "Wingo", image: wingoLogo.src },
   { id: "lebara", name: "Lebara", image: lebraLogo.src },
+  { id: "autre", name: "Autre", image: otherLogo.src },
 ];

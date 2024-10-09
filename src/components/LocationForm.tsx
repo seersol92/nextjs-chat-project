@@ -53,7 +53,7 @@ const LocationForm: React.FC<LocationFormProps> = ({ isLoading, onSubmit }) => {
     <form onSubmit={handleSubmit} className="flex flex-col space-y-8">
       {/* Address Section */}
       <div>
-        <div className="mb-2 font-bold">
+        <div className="mb-2 font-bold hidden">
           Champs de formulaire de gestion de données :
         </div>
         <div>
@@ -65,7 +65,7 @@ const LocationForm: React.FC<LocationFormProps> = ({ isLoading, onSubmit }) => {
             name="street"
             value={formData.street}
             onChange={handleChange}
-            placeholder="Ex: 123 Rue de Paris"
+            placeholder="rue du Bourg"
             required
             className="border-gray-300 w-full rounded-md border p-2 transition focus:border-blue-500 focus:outline-none focus:ring focus:ring-blue-200"
           />
@@ -79,7 +79,7 @@ const LocationForm: React.FC<LocationFormProps> = ({ isLoading, onSubmit }) => {
             name="postalCode"
             value={formData.postalCode}
             onChange={handleChange}
-            placeholder="Ex: 75000"
+            placeholder="1003"
             required
             className="border-gray-300 w-full rounded-md border p-2 transition focus:border-blue-500 focus:outline-none focus:ring focus:ring-blue-200"
           />
@@ -93,7 +93,7 @@ const LocationForm: React.FC<LocationFormProps> = ({ isLoading, onSubmit }) => {
             name="city"
             value={formData.city}
             onChange={handleChange}
-            placeholder="Ex: Paris"
+            placeholder="Lausanne"
             required
             className="border-gray-300 w-full rounded-md border p-2 transition focus:border-blue-500 focus:outline-none focus:ring focus:ring-blue-200"
           />
@@ -165,7 +165,7 @@ const LocationForm: React.FC<LocationFormProps> = ({ isLoading, onSubmit }) => {
             name="phoneNumber"
             value={formData.phoneNumber}
             onChange={handleChange}
-            placeholder="Ex: +33 6 12 34 56 78"
+            placeholder="Ex: +41 76 300 30 00"
             required
             className="border-gray-300 w-full rounded-md border p-2 transition focus:border-blue-500 focus:outline-none focus:ring focus:ring-blue-200"
           />

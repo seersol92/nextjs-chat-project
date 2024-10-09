@@ -26,18 +26,18 @@ const LandingPage: React.FC = () => {
   ];
   return (
     <>
-      <div className=" min-h-screen">
+      <div className=" min-h-screen bg-[#0F9DE8]">
         {/* Header */}
-        <header className="bg-custom-gradient  text-white shadow-md">
+        <header className="text-white shadow-md">
           <div className="flex items-center justify-between pl-6">
             {/* Logo */}
             <div className="pb-2 pt-2">
               <Link href="/" className="hover:underline">
                 <Image
-                  src="/images/logo.jpeg"
+                  src="/images/logo.png"
                   alt="Logo"
-                  width={95} // Adjust width as needed
-                  height={43} // Adjust height as needed
+                  width={100} // Adjust width as needed
+                  height={50} // Adjust height as needed
                   className="rounded-full object-contain"
                 />
               </Link>
@@ -61,7 +61,7 @@ const LandingPage: React.FC = () => {
           </div>
         </header>
         {/* Main Content */}
-        <div className="mainImage">
+        <div className="">
           {/* Main Content */}
           <main className="flex-1 p-6">
             {/* Use the Tab Component
@@ -70,7 +70,7 @@ const LandingPage: React.FC = () => {
           </main>
         </div>
         {/* Footer */}
-        <footer className="bg-[#020018] p-5 text-white">
+        <footer className=" p-5 text-white">
           <div className="container mx-auto text-center">
             <p>&copy; 2024 All rights reserved.</p>
           </div>
