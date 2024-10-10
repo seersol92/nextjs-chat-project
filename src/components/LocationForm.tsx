@@ -164,9 +164,6 @@ const LocationForm: React.FC<LocationFormProps> = ({
           Pouvez-vous m'indiquer votre numéro de téléphone ?
         </div>
         <div>
-          <label className="mb-1 block" htmlFor="phoneNumber">
-            Champs pour numéro de téléphone:
-          </label>
           <input
             type="tel"
             name="phoneNumber"
