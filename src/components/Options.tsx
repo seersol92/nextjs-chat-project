@@ -18,24 +18,22 @@ const Options: React.FC<OptionsProps> = ({
         <div
           key={index}
           className={`${
-            hasImages
-              ? "mb-4 flex w-1/4 flex-col items-center justify-center"
-              : ""
+            hasImages ? "mb-4 flex flex-col items-center justify-center" : ""
           }`}
         >
           {hasImages && option.image ? (
             <div
-              className="relative flex h-35 w-35 cursor-pointer flex-col items-center justify-between gap-2 rounded-lg border border-blue-400 p-6 shadow-lg shadow-blue-500 transition-transform duration-300 hover:scale-105 hover:shadow-blue-600"
+              className="relative flex h-25 w-25 cursor-pointer flex-col items-center justify-between gap-3 rounded-lg border border-blue-400 p-3 shadow-lg shadow-blue-500 transition-transform duration-300 hover:scale-105 hover:shadow-blue-600 md:h-30 md:w-30 md:p-5"
               onClick={() => onOptionClick(option.name)}
             >
               <Image
                 src={option.image}
                 alt={option.name}
-                width={65}
-                height={65}
-                className=" object-contain"
+                width={25}
+                height={25}
+                className=" h-12 w-12 object-contain md:h-15 md:w-15 mb-1"
               />
-              <span className="bg-custom-gradient text-white text-lg absolute bottom-0 left-0 right-0 rounded-lg rounded-tl-none rounded-tr-none p-2 text-center">
+              <span className="bg-custom-gradient absolute bottom-0 left-0 right-0 rounded-lg rounded-tl-none rounded-tr-none p-1 text-center text-white  md:text-lg">
                 {option.name}
               </span>
             </div>
