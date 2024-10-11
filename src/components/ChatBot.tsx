@@ -56,11 +56,24 @@ const ChatBot = () => {
     cost: "",
   });
 
-  useEffect(() => {
-    if (chatRef.current) {
-      chatRef.current.scrollTop = chatRef.current.scrollHeight;
+useEffect(() => {
+  if (chatRef.current) {
+    const scrollHeight = chatRef.current.scrollHeight;
+    const currentScrollTop = chatRef.current.scrollTop;
+
+    if (currentMsg.key !== "contact") {
+      // Scroll to the bottom
+      chatRef.current.scrollTop = scrollHeight;
+    } else {
+      // Scroll 10% more from the current position
+      const additionalScroll = scrollHeight * 0.18; // Change 0.1 to 0.15 for 15%
+      chatRef.current.scrollTop = Math.min(
+        currentScrollTop + additionalScroll,
+        scrollHeight,
+      );
     }
-  }, [messages]);
+  }
+}, [messages]);
 
   const botMessages = [
     {
