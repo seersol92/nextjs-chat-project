@@ -7,11 +7,13 @@ import { toast } from "react-toastify";
 import Options from "./Options";
 import Loader from "./Loader";
 import Message from "./Message";
-import { Message as msgSchema } from "@prisma/client";
 
-
-interface extenMessage extends msgSchema {
+interface msgSchema {
+  id: string; 
+  text: string;
   options: string[] | Operator[];
+  images?: boolean;
+  key: string;
 }
 
 const ChatBot = () => {
@@ -22,7 +24,7 @@ const ChatBot = () => {
   const [waitingForUser, setWaitingForUser] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const chatRef = useRef<HTMLDivElement>(null);
-  const [botMessages, setBotMessages] = useState<extenMessage[]>([]);
+  const [botMessages, setBotMessages] = useState<msgSchema[]>([]);
 
   const [userData, setUserData] = useState({
     type: "",
