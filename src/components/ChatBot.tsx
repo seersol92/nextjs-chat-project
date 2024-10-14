@@ -1,3 +1,4 @@
+
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 import { operatorsList } from "@/lib/operatorsList";
@@ -5,39 +6,10 @@ import LocationForm from "./LocationForm";
 import { toast } from "react-toastify";
 import Options from "./Options";
 import Loader from "./Loader";
+import Message from "./Message";
+import { Message as msgSchema } from "@prisma/client";
 
-interface MessageProps {
-  sender: "user" | "bot"; // Define possible values for sender
-  text: string | React.ReactNode; // Allow string or React node
-}
 
-const Message: React.FC<MessageProps> = ({ sender, text }) => {
-  const isUser = sender === "user";
-
-  return (
-    <div
-      className={`flex items-center gap-2 ${isUser ? "justify-end" : "justify-start"}`}
-    >
-      {sender === "bot" && (
-        <Image
-          src="/images/chat-bot.jpg"
-          alt="Bot"
-          width={45}
-          height={40}
-          className="rounded-full object-contain"
-        />
-      )}
-      <div
-        className={`rounded-lg p-2 ${sender === "bot" ? "rounded-bl-none bg-blue-200 font-normal text-black" : "rounded-br-none bg-green-200"}`}
-        dangerouslySetInnerHTML={
-          typeof text === "string" ? { __html: text } : undefined
-        }
-      >
-        {typeof text !== "string" ? text : null}
-      </div>
-    </div>
-  );
-};
 
 const ChatBot = () => {
   const [messages, setMessages] = useState<any[]>([]);
@@ -46,7 +18,8 @@ const ChatBot = () => {
   const [currentMsg, setCurrentMsg] = useState<any>({});
   const [waitingForUser, setWaitingForUser] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
-  const chatRef = useRef<HTMLDivElement>(null); // Ref for chat container
+  const chatRef = useRef<HTMLDivElement>(null);
+  const [botMessages, setBotMessages] = useState<msgSchema[]>([]);
 
   const [userData, setUserData] = useState({
     type: "",
@@ -56,25 +29,26 @@ const ChatBot = () => {
     cost: "",
   });
 
-useEffect(() => {
-  if (chatRef.current) {
-    const scrollHeight = chatRef.current.scrollHeight;
-    const currentScrollTop = chatRef.current.scrollTop;
+  useEffect(() => {
+    if (chatRef.current) {
+      const scrollHeight = chatRef.current.scrollHeight;
+      const currentScrollTop = chatRef.current.scrollTop;
 
-    if (currentMsg.key !== "contact") {
-      // Scroll to the bottom
-      chatRef.current.scrollTop = scrollHeight;
-    } else {
-      // Scroll 10% more from the current position
-      const additionalScroll = scrollHeight * 0.18; // Change 0.1 to 0.15 for 15%
-      chatRef.current.scrollTop = Math.min(
-        currentScrollTop + additionalScroll,
-        scrollHeight,
-      );
+      if (currentMsg.key !== "contact") {
+        // Scroll to the bottom
+        chatRef.current.scrollTop = scrollHeight;
+      } else {
+        // Scroll 10% more from the current position
+        const additionalScroll = scrollHeight * 0.18; // Change 0.1 to 0.15 for 15%
+        chatRef.current.scrollTop = Math.min(
+          currentScrollTop + additionalScroll,
+          scrollHeight,
+        );
+      }
     }
-  }
-}, [messages]);
+  }, [messages]);
 
+  /*
   const botMessages = [
     {
       text: "En plus de faire des économies, pourquoi changez-vous de fournisseur ?",
@@ -144,10 +118,37 @@ useEffect(() => {
       key: "contact",
       images: false,
     },
-  ];
+  ];*/
+
+  // Fetch bot messages from API on component mount
+  useEffect(() => {
+    const fetchMessages = async () => {
+      setLoading(true);
+      try {
+        console.log("1234");
+        const response = await fetch("/api/message");
+        const data = await response.json();
+        setBotMessages(data);
+        setCurrentMsg(data[0]);
+        setCurrentMessageIndex(0)
+        setMessages((prevMessages) => [
+          ...prevMessages,
+          { sender: "bot", ...data[0] },
+        ]);
+        setWaitingForUser(true);
+      } catch (error) {
+        console.error("Error fetching messages:", error);
+        toast.error("Failed to load messages.");
+      } finally {
+        setLoading(false);
+      }
+    };
+    if(!loading) fetchMessages();
+  }, []);
 
   useEffect(() => {
     if (waitingForUser || currentMessageIndex >= botMessages.length) return;
+    console.log("heree 12");
     setLoading(true);
     const timer = setTimeout(() => {
       const currentMessage = botMessages[currentMessageIndex];
@@ -204,13 +205,13 @@ useEffect(() => {
 
   const goToPreviousMessage = () => {
     if (currentMessageIndex > 0) {
-       setCurrentMessageIndex((prevIndex) => prevIndex - 1); // Move to the next question
-       const currentMessage = botMessages[currentMessageIndex - 1];
-       setCurrentMsg(currentMessage);
-       setMessages((prevMessages) => [
-         ...prevMessages,
-         { sender: "bot", ...currentMessage },
-       ]);
+      setCurrentMessageIndex((prevIndex) => prevIndex - 1); // Move to the next question
+      const currentMessage = botMessages[currentMessageIndex - 1];
+      setCurrentMsg(currentMessage);
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { sender: "bot", ...currentMessage },
+      ]);
       setWaitingForUser(true); // Allow user interaction again
     }
   };
@@ -282,6 +283,9 @@ useEffect(() => {
     <div className="bg-gray-100 mt-10 flex min-h-screen flex-col items-center">
       <div className="w-[90%] rounded-lg bg-white shadow-md md:w-[70%] lg:w-[40%]">
         {/* Chat Heading */}
+        {JSON.stringify(botMessages)}
+        {JSON.stringify(currentMsg)}
+
         <div className="bg-custom-gradient-hover relative mb-4 flex items-center rounded-tl-lg rounded-tr-lg p-3">
           <div className="relative">
             <Image
@@ -305,7 +309,6 @@ useEffect(() => {
           ref={chatRef}
           className="scrollbar flex max-h-[700px] flex-col space-y-4 overflow-y-auto p-2"
         >
-         
           <Message
             sender="bot"
             text={
@@ -352,10 +355,9 @@ useEffect(() => {
               {currentMessageIndex > 0 && (
                 <div>
                   <button
-                    className="mt-2 ml-4 mb-2 flex text-lg  text-blue-500 underline"
+                    className="mb-2 ml-4 mt-2 flex text-lg  text-blue-500 underline"
                     onClick={goToPreviousMessage}
                   >
-                    
                     <span> {"<- précédent"}</span>
                   </button>
                 </div>
