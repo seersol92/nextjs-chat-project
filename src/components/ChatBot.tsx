@@ -1,7 +1,7 @@
 
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
-import { operatorsList } from "@/lib/operatorsList";
+import { Operator, operatorsList } from "@/lib/operatorsList";
 import LocationForm from "./LocationForm";
 import { toast } from "react-toastify";
 import Options from "./Options";
@@ -10,6 +10,9 @@ import Message from "./Message";
 import { Message as msgSchema } from "@prisma/client";
 
 
+interface extenMessage extends msgSchema {
+  options: string[] | Operator[];
+}
 
 const ChatBot = () => {
   const [messages, setMessages] = useState<any[]>([]);
@@ -19,7 +22,7 @@ const ChatBot = () => {
   const [waitingForUser, setWaitingForUser] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const chatRef = useRef<HTMLDivElement>(null);
-  const [botMessages, setBotMessages] = useState<msgSchema[]>([]);
+  const [botMessages, setBotMessages] = useState<extenMessage[]>([]);
 
   const [userData, setUserData] = useState({
     type: "",
@@ -125,7 +128,6 @@ const ChatBot = () => {
     const fetchMessages = async () => {
       setLoading(true);
       try {
-        console.log("1234");
         const response = await fetch("/api/message");
         const data = await response.json();
         setBotMessages(data);
@@ -153,13 +155,16 @@ const ChatBot = () => {
     const timer = setTimeout(() => {
       const currentMessage = botMessages[currentMessageIndex];
       setCurrentMsg(currentMessage);
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        { sender: "bot", ...currentMessage },
-      ]);
+      if (currentMessage.key === "operator")
+         currentMessage.options = operatorsList;
+
+        setMessages((prevMessages) => [
+          ...prevMessages,
+          { sender: "bot", ...currentMessage },
+        ]);
 
       // Set waitingForUser state if the message has options or input
-      if (currentMessage.options || currentMessage.input) {
+      if (currentMessage.options) {
         setWaitingForUser(true);
       } else {
         setWaitingForUser(false);
@@ -283,8 +288,6 @@ const ChatBot = () => {
     <div className="bg-gray-100 mt-10 flex min-h-screen flex-col items-center">
       <div className="w-[90%] rounded-lg bg-white shadow-md md:w-[70%] lg:w-[40%]">
         {/* Chat Heading */}
-        {JSON.stringify(botMessages)}
-        {JSON.stringify(currentMsg)}
 
         <div className="bg-custom-gradient-hover relative mb-4 flex items-center rounded-tl-lg rounded-tr-lg p-3">
           <div className="relative">
@@ -345,7 +348,7 @@ const ChatBot = () => {
                 />
               )}
               {/* Handle input separately if needed */}
-              {botMessages[currentMessageIndex].input && (
+              {currentMsg.key == 'contact' && (
                 <LocationForm
                   showAddress={userData.type !== "Abonnement Mobile"}
                   onSubmit={handleFormSubmit}
