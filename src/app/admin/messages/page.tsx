@@ -52,7 +52,7 @@ const Messages: React.FC = () => {
     if (editingMessage) {
       setIsSaving(true); // Start loading
       const response = await fetch(`/api/message`, {
-        method: "PUT",
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },

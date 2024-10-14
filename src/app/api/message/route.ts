@@ -4,7 +4,7 @@ import { NextApiRequest } from "next";
 
 const prisma = new PrismaClient();
 // Handle GET requests to fetch all leads
-export async function PUT(request: Request) {
+export async function POST(request: Request) {
   const { text, options, id } = await request.json();
   console.log(text, options);
   try {
