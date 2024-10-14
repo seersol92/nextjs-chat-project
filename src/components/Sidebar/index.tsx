@@ -3,7 +3,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
 import SidebarItem from "@/components/Sidebar/SidebarItem";
 import ClickOutside from "@/components/ClickOutside";
 import useLocalStorage from "@/hooks/useLocalStorage";
@@ -138,7 +137,7 @@ const menuGroups = [
         ),
         label: "Profile",
         route: "/admin/profile",
-      },
+      },*/
       {
         icon: (
           <svg
@@ -173,7 +172,7 @@ const menuGroups = [
         ),
         label: "Settings",
         route: "/admin/settings",
-      }, */
+      }, 
     ],
   },
 ];

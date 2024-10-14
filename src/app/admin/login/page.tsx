@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { signIn } from "next-auth/react"; // Import NextAuth signIn method
 import Link from "next/link";
+import Image from "next/image";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>("");
@@ -38,17 +39,19 @@ const Login: React.FC = () => {
         <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
           <div className="flex flex-wrap items-center">
             <div className="hidden w-full xl:block xl:w-1/2">
-              <div className="px-26 py-17.5 text-center">
+              <div className="flex flex-col justify-center items-center gap-10 px-26 py-17.5 text-center">
+                <Image
+                  src="/images/logo.png"
+                  alt="Logo"
+                  width={100} // Adjust width as needed
+                  height={50} // Adjust height as needed
+                  className="rounded-full object-contain"
+                />
                 <Link className="mb-5.5 inline-block" href="/">
                   <h2 className="mb-9 text-2xl font-bold text-black sm:text-title-xl2">
                     Admin Panel
                   </h2>
                 </Link>
-
-                <p className="2xl:px-20">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                  suspendisse.
-                </p>
               </div>
             </div>
 

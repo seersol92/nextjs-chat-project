@@ -29,9 +29,10 @@ const Options: React.FC<OptionsProps> = ({
               <Image
                 src={option.image}
                 alt={option.name}
-                width={25}
-                height={25}
-                className=" h-12 w-12 object-contain md:h-15 md:w-15 mb-1"
+                width={100}
+                quality={100}
+                height={100}
+                className=" mb-1 h-12 w-12 object-contain md:h-15 md:w-15"
               />
               <span className="bg-custom-gradient absolute bottom-0 left-0 right-0 rounded-lg rounded-tl-none rounded-tr-none p-1 text-center text-white  md:text-lg">
                 {option.name}
