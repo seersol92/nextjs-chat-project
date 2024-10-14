@@ -152,13 +152,13 @@ const ChatBot = () => {
 
   useEffect(() => {
     if (waitingForUser || currentMessageIndex >= botMessages.length) return;
-    console.log("heree 12");
     setLoading(true);
     const timer = setTimeout(() => {
       const currentMessage = botMessages[currentMessageIndex];
       setCurrentMsg(currentMessage);
-      if (currentMessage.key === "operator")
-         currentMessage.options = operatorsList;
+      //if (currentMessage.key === "operator")
+      console.log(currentMessage);
+      //currentMessage.options = operatorsList;
 
         setMessages((prevMessages) => [
           ...prevMessages,
@@ -199,6 +199,8 @@ const ChatBot = () => {
     setTimeout(() => {
       setCurrentMessageIndex((prevIndex) => prevIndex + 1); // Move to the next question
       const currentMessage = botMessages[currentMessageIndex + 1];
+      if (currentMessage.key === "operator")
+        currentMessage.options = operatorsList;  
       setCurrentMsg(currentMessage);
       setMessages((prevMessages) => [
         ...prevMessages,

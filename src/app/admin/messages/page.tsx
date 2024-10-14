@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import { Message } from "@prisma/client"; // Import Message type from Prisma client
+import { toast } from "react-toastify";
 
 const Messages: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -12,6 +13,7 @@ const Messages: React.FC = () => {
   const [editingMessage, setEditingMessage] = useState<Message | null>(null);
   const [tagInput, setTagInput] = useState<string>("");
   const [editingTagIndex, setEditingTagIndex] = useState<number | null>(null); // Index of the tag being edited
+  const [isSaving, setIsSaving] = useState<boolean>(false); // New state for saving
 
   useEffect(() => {
     const fetchMessages = async () => {
@@ -48,6 +50,7 @@ const Messages: React.FC = () => {
 
   const handleEditSave = async () => {
     if (editingMessage) {
+      setIsSaving(true); // Start loading
       const response = await fetch(`/api/message`, {
         method: "PUT",
         headers: {
@@ -62,10 +65,12 @@ const Messages: React.FC = () => {
             msg.id === editingMessage.id ? editingMessage : msg,
           ),
         );
+        toast.success("Message updated.");
         closeModal();
       } else {
         console.error("Failed to save changes");
       }
+      setIsSaving(false); // Stop loading
     }
   };
 
@@ -217,13 +222,15 @@ const Messages: React.FC = () => {
                         {editingMessage.options.map((tag, index) => (
                           <span
                             key={index}
-                            className="flex cursor-pointer items-center rounded bg-blue-100 px-2.5 py-0.5 text-sm font-medium text-blue-800"
+                            title="Edit?"
+                            className="flex cursor-pointer items-center rounded bg-blue-100 px-3.5 py-2 text-sm font-medium text-blue-800"
                             onClick={() => handleEditTag(index)}
                           >
                             {tag}
                             <button
                               onClick={() => handleRemoveTag(tag)}
-                              className="text-red-600 ml-2"
+                              title="Delete?"
+                              className="text-white flex justify-center items-center bg-red p-2 rounded-full ml-3 w-5 h-5"
                             >
                               &times;
                             </button>
@@ -241,9 +248,20 @@ const Messages: React.FC = () => {
                     <div className="flex justify-end">
                       <button
                         onClick={handleEditSave}
-                        className="mr-2 rounded bg-blue-500 px-4 py-2 text-white"
+                        className={`mr-2 rounded bg-blue-500 px-4 py-2 text-white ${
+                          isSaving ? "cursor-not-allowed opacity-50" : ""
+                        }`}
+                        disabled={isSaving} // Disable the button while saving
                       >
-                        Save
+                        {isSaving ? (
+                          <span>
+                            <span className="loader"></span>{" "}
+                            {/* Your loading icon */}
+                            Saving...
+                          </span>
+                        ) : (
+                          "Save"
+                        )}
                       </button>
                       <button
                         onClick={closeModal}
