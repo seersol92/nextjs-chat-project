@@ -24,11 +24,16 @@ export async function POST(request: Request) {
     return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
   }
 
+  if (!session || !session.user || typeof session.user.email !== "string") {
+    return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+  }
+
   const { name, currentPassword, newPassword } = await request.json();
 
   try {
+    const email = session.user.email;
     const user = await prisma.user.findUnique({
-      where: { email: session.user.email },
+      where: { email },
     });
 
     if (!user) {
